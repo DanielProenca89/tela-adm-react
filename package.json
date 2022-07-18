@@ -10,12 +10,19 @@
   },
   "dependencies": {
     "@mantine/core": "^4.2.12",
+    "@mantine/form": "^4.2.12",
     "@mantine/hooks": "^4.2.12",
     "@mantine/next": "^4.2.12",
+    "@types/md5": "^2.3.2",
+    "md5": "^2.3.0",
     "next": "12.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tabler-icons-react": "^1.52.0"
+    "react-icons": "^4.4.0",
+    "react-webcam": "^7.0.1",
+    "tabler-icons-react": "^1.52.0",
+    "ts-md5": "^1.2.11",
+    "utility": "^1.17.0"
   },
   "devDependencies": {
     "eslint": "8.19.0",
