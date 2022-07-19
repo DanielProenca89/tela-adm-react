@@ -15,7 +15,7 @@ const videoConstraints = {
   const WebcamCapture = ({upimage}) => {
 
     const [image,setImage]=React.useState('');
-
+    
     const webcamRef = React.useRef(null);
     const capture = React.useCallback(
       () => {

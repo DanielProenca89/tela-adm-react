@@ -6,7 +6,10 @@ export const api = async (params, route)=>{
         body: JSON.stringify(params)
     };
     const response = await (await fetch(`http://194.195.86.239:8080/api/${route}`, requestOptions)).json();
+  if(route == "login/interno"){
     return response[0].data;
-
+  }else{
+    return response
+  }
       
 }

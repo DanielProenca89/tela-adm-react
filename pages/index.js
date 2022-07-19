@@ -1,30 +1,48 @@
 import React, {Component} from 'react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
-import Router from 'next/router'
+import {Router, useRouter} from 'next/router'
 import { useForm } from '@mantine/form';
 import { LoadingOverlay, TextInput, Text, Button, Box, PasswordInput, Center, MantineProvider } from '@mantine/core';
 import '../styles/Login.module.css'
 import { api } from './api/api';
-import {isLogged, setSession} from './api/auth'
+import {isLogged, setGrupo, setSession} from './api/auth'
 import { Login } from 'tabler-icons-react';
 import {Md5} from 'ts-md5';
+
 export default function Home() {
 
 
   const [error,setError] = useState('');
-  const [visible, setVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  useEffect(() => {
+      const handleStart = (url) => (url !== router.asPath) && setLoading(true);
+      const handleComplete = (url) => (url === router.asPath) && setLoading(false);
+
+      router.events.on('routeChangeStart', handleStart)
+      router.events.on('routeChangeComplete', handleComplete)
+      router.events.on('routeChangeError', handleComplete)
+
+      return () => {
+          router.events.off('routeChangeStart', handleStart)
+          router.events.off('routeChangeComplete', handleComplete)
+          router.events.off('routeChangeError', handleComplete)
+      }
+  })
+  
+
 
   const Login = async (values)=>{
     const response = await api({user:values.user, senha:Md5.hashStr(values.password)}, 'login/interno');
-    setVisible(true);
+    
 
     if(JSON.parse(response).response == 1){
       setSession(JSON.parse(response).key);
-      setVisible(false)
-      Router.push('/home')
+      setGrupo(JSON.parse(response).grupo);
+      router.push('/home')
     }else{
-      setVisible(false)
       setError("Acesso negado")
 
   }
@@ -62,7 +80,7 @@ export default function Home() {
              maxWidth: 340,
          })} mx="auto">
 
-             <LoadingOverlay visible={visible} />
+             <LoadingOverlay visible={loading} />
              <form  onSubmit={form.onSubmit((values)=>Login(values))}>
               <label style={{color:"#fff"}}>Login</label><div style = {{color:"red", display:"inline"}}> *</div>
                  <TextInput
