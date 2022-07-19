@@ -6,7 +6,7 @@
   <!-- <a href="https://interno2.netlify.app">Demo</a> -->
 </div>
 
-<h1 align="center">Interno2</h1>
+<h1 align="center">Módulo Interno SIGA</h1>
 
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/{{YOUR_GITHUB_USERNAME}}/interno2?color=56BEB8">
